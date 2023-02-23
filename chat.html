@@ -1,38 +1,3 @@
-<?php 
-    include 'config/database.php';
-    session_start();
-    $nameer='';
-    if(!isset($_SESSION['UNIQUE_ID']))
-    {
-        header("Location: intro.html");
-    }
-    else
-    {
-        if(isset($_POST['button']))
-        {
-            if(empty($_POST['message']))
-            {
-                $nameer='Username is required';
-            }
-            else
-            {
-                $outgoing_id = $_SESSION['UNIQUE_ID'];
-                $incoming_id = mysqli_real_escape_string($conn, $_POST['incoming_id']);
-                $message = mysqli_real_escape_string($conn, $_POST['message']);
-                $sql1 = mysqli_query($conn, "INSERT INTO messages(incoming_msg_id, outgoing_msg_id, msg) 
-                                            VALUES({$incoming_id}, {$outgoing_id}, '{$message}')") or die();
-                // if(move_uploaded_file($_FILES['image']['tmp_name'],$target))
-                // {
-                //     echo "Uploaded";
-                // }
-                // else{
-                //     echo "error";
-                // }
-            }
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,23 +17,11 @@
     <section class="users">
       <header>
         <div class="content">
-          <?php 
-            include_once "config/database.php";
-            $sql = mysqli_query($conn, "SELECT * FROM login WHERE UNIQUE_ID = {$_SESSION['UNIQUE_ID']}");
-            if(mysqli_num_rows($sql) > 0){
-              $row = mysqli_fetch_assoc($sql);
-            }
-          ?>
-          <!-- <img src="php/images/
-          <?php 
-          // echo $row['img']; 
-          ?>
-          " alt=""> -->
           <div class="details">
-            <span><?php echo $row['USERNAME']; ?></span>
+            <span></span>
           </div>
         </div>
-        <a href="php/logout.php?logout_id=<?php echo $row['UNIQUE_ID']; ?>" class="logout">Logout</a>
+        <a href="php/logout.php" class="logout">Logout</a>
       </header>
       <div class="search">
         <span class="text">Select an user to start chat</span>
@@ -87,40 +40,21 @@
     <div class="wrapper">
         <section class="chat-page">
             <header>
-                <?php 
-                    $user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
-                    $sql="SELECT * FROM login WHERE UNIQUE_ID = {$user_id}";
-                    $result=mysqli_query($conn,$sql);
-                    if(mysqli_num_rows($result)>0)
-                    {
-                        $row=mysqli_fetch_assoc($result);
-                    }
-                    else{
-                        header("location: users.php");
-                    }
-                    echo $nameer;
-                ?>
                     <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <img src="img/profile.avif" alt="">
                     
                     <div class="details">
-                        <span><?php echo $row['USERNAME']; ?></span>
-                        <p><?php echo $row['STATUS']; ?></p>
+                        <span></span>
+                        <p></p>
                     </div>
             </header>
             <div class="chat-box">
                 
             </div>
-            <form action="<?php echo $_SERVER['PHP_SELF']?>" class="typing-area"  method="POST" enctype="multipart/form-data">
-            <!-- <label class="custom-file-upload">
-                <input type="file" name="image">
-                <i class="fa-solid fa-paperclip"></i>
-            </label> -->
-                <!-- <input type="file" class="file" name="file"> -->
-                <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id ?>" hidden>
+            <form action="" class="typing-area"  method="POST" enctype="multipart/form-data">
+                <input type="text" class="incoming_id" name="incoming_id" value="" hidden>
                 <input class="input-field" name="message" type="text" placeholder="Type a message...">
                 <button type="submit" class="button" name="button"><i class="fab fa-telegram-plane"></i></button>
-                <!-- <input type="submit" name="button" class="button" value="." required> -->
             </form>
         </section>        
     </div>
