@@ -1,9 +1,3 @@
-<?php 
-  session_start();
-  if(!isset($_SESSION['UNIQUE_ID'])){
-    header("location: intro.html");
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,23 +13,11 @@
     <section class="users">
       <header>
         <div class="content">
-          <?php 
-            include_once "config/database.php";
-            $sql = mysqli_query($conn, "SELECT * FROM login WHERE UNIQUE_ID = {$_SESSION['UNIQUE_ID']}");
-            if(mysqli_num_rows($sql) > 0){
-              $row = mysqli_fetch_assoc($sql);
-            }
-          ?>
-          <!-- <img src="php/images/
-          <?php 
-          // echo $row['img']; 
-          ?>
-          " alt=""> -->
           <div class="details">
-            <span><?php echo $row['USERNAME']; ?></span>
+            <span></span>
           </div>
         </div>
-        <a href="php/logout.php?logout_id=<?php echo $row['UNIQUE_ID']; ?>" class="logout">Logout</a>
+        <a href="" class="logout">Logout</a>
       </header>
       <div class="search">
         <span class="text">Select an user to start chat</span>
